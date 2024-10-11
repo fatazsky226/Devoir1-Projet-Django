@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}  <!-- Ajoutez cette ligne -->
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Liste des exemples</title>
+</head>
+<body>
+    <header class="bg-primary text-white text-center py-4">
+        <h1>Liste des Exemples</h1>
+    </header>
+
+    <main class="container my-5">
+        <section class="row">
+            {% for exemple in exemples %}
+                <article class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{exemple.image.url }}" alt="Image de {{exemple.nom }}" class="card-img-top objets-image">
+                        <div class="card-body">
+                            <h2 class="card-title">{{exemple.nom }}</h2>
+                            <p class="card-text"><strong>Description :</strong> {{exemple.description }}</p>
+                            <p class="card-text"><strong>Quantité :</strong> {{exemple.quantité }}</p>
+                            <p class="card-text"><strong>Prix :</strong> {{exemple.prix }} €</p>
+                            <p class="card-text"><strong>Date de publication :</strong> {{exemple.date_publication }}</p>
+                            <p class="card-text"><strong>Date et heure de création :</strong> {{exemple.date_heure_creation }}</p>
+                            <p class="card-text"><strong>Disponibilité :</strong> {{exemple.est_disponible|yesno:"Oui,Non" }}</p>
+                            <p><strong>Email :</strong> <a href="mailto:{{exemple.email }}">{{exemple.email }}</a></p>
+                            {% if exemple.fichier %}
+                                <p><strong>Fichier :</strong> <a href="{{exemple.fichier.url }}" class="btn btn-primary">Télécharger</a></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </article>
+            {% empty %}
+                <p class="col-12 text-center">Aucun objet trouvé.</p>
+            {% endfor %}
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; {{ year }} Mon Application</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
